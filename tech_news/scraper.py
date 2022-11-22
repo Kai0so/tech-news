@@ -24,13 +24,16 @@ def scrape_novidades(html_content):
     titles = selector.css("h2.entry-title a::attr(href)").getall()
     if titles:
         return titles
-    else:
-        return []
+    return []
 
 
 # Requisito 3
 def scrape_next_page_link(html_content):
-    """Seu código deve vir aqui"""
+    selector = Selector(html_content)
+    next_page = selector.css("div.nav-links a.next::attr(href)").get()
+    if next_page:
+        return next_page
+    return None
 
 
 # Requisito 4
