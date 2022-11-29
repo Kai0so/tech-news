@@ -18,4 +18,13 @@ def top_5_news():
 
 # Requisito 11
 def top_5_categories():
-    """Seu código deve vir aqui"""
+    pipelines = [
+        {"$group": {"_id": "$category", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1, "_id": 1}},
+    ]
+    search_result = []
+    news_result = get_collection().aggregate(pipelines)
+    for news in news_result:
+        news_data = news["_id"]
+        search_result.append(news_data)
+    return search_result
