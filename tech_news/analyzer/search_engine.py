@@ -37,7 +37,6 @@ def search_by_date(date):
 
 # Requisito 8
 def search_by_tag(tag):
-    """Seu código deve vir aqui"""
     query = {"tags": {"$regex": tag, "$options": "i"}}
     search_result = []
     try:
@@ -53,4 +52,14 @@ def search_by_tag(tag):
 
 # Requisito 9
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    query = {"category": {"$regex": category, "$options": "i"}}
+    search_result = []
+    try:
+        news_result = search_news(query)
+    except FileNotFoundError:
+        return []
+    else:
+        for news in news_result:
+            news_data = (news["title"], news["url"])
+            search_result.append(news_data)
+        return search_result
